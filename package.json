@@ -1,0 +1,126 @@
+{
+  "name": "custom-javaScript-for-websites-2",
+  "version": "3.4.12",
+  "description": "Run custom JavaScript on any website.",
+  "scripts": {
+    "analyze": "NODE_ENV=production node utils/analyze.js",
+    "build": "NODE_ENV=production node utils/build.js",
+    "deploy": "run-s build zip",
+    "zip": "zip -X --compression-method deflate -r build.zip build",
+    "prettier": "prettier --no-semi --single-quote --write",
+    "lint:ts": "standard --parser @typescript-eslint/parser --plugin typescript ./**/*.tsx",
+    "lint": "standard",
+    "lintfix": "yarn prettier 'src/**/*.{js,ts,tsx}' && yarn lint --fix && yarn lint:ts --fix",
+    "test:chrome-upload": "chrome-webstore-upload --help",
+    "start": "node utils/webserver.js",
+    "upload:chrome": "node -r dotenv/config ./node_modules/.bin/chrome-webstore-upload upload --source build.zip",
+    "publish:chrome": "node -r dotenv/config ./node_modules/.bin/chrome-webstore-upload publish",
+    "publish-extension": "yarn publish:chrome",
+    "release": "standard-version",
+    "test": "run-s lint build test:*"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.12.4",
+    "@material-ui/styles": "4.11.5",
+    "antd": "4.20.5",
+    "chrome-extension-async": "3.4.1",
+    "clean-webpack-plugin": "4.0.0",
+    "js-beautify": "1.14.3",
+    "lodash.orderby": "4.6.0",
+    "lodash.uniqby": "4.7.0",
+    "mobx": "6.5.0",
+    "mobx-react": "7.4.0",
+    "object-sizeof": "1.6.3",
+    "query-string": "7.1.1",
+    "react": "17.0.2",
+    "react-ace": "9.5.0",
+    "react-dom": "17.0.2",
+    "react-router-dom": "6.3.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.186",
+    "@types/jasmine": "3.10.6",
+    "@types/jest": "27.5.1",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@typescript-eslint/eslint-plugin": "5.25.0",
+    "@typescript-eslint/parser": "5.25.0",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-import": "1.13.5",
+    "chrome-webstore-upload-cli": "2.1.0",
+    "codecov": "3.8.3",
+    "copy-webpack-plugin": "9.1.0",
+    "coveralls": "3.1.1",
+    "css-loader": "6.7.1",
+    "dotenv": "14.3.2",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.6",
+    "eslint": "7.32.0",
+    "eslint-plugin-typescript": "0.14.0",
+    "file-loader": "6.2.0",
+    "fork-ts-checker-webpack-plugin": "6.5.2",
+    "hard-source-webpack-plugin": "0.13.1",
+    "html-loader": "3.1.0",
+    "html-webpack-plugin": "5.5.0",
+    "husky": "7.0.4",
+    "jest": "27.5.1",
+    "lint-staged": "12.4.1",
+    "mini-css-extract-plugin": "2.6.0",
+    "npm-run-all": "4.1.5",
+    "optimize-css-assets-webpack-plugin": "6.0.1",
+    "prettier": "2.6.2",
+    "progress-bar-webpack-plugin": "2.1.0",
+    "react-axe": "3.5.4",
+    "react-test-renderer": "17.0.2",
+    "regenerator-runtime": "0.13.9",
+    "samsam": "1.3.0",
+    "sinon": "12.0.1",
+    "sinon-chrome": "3.0.1",
+    "standard": "16.0.4",
+    "standard-version": "9.5.0",
+    "style-loader": "3.3.1",
+    "terser-webpack-plugin": "5.3.1",
+    "ts-jest": "27.1.5",
+    "ts-loader": "9.3.0",
+    "typescript": "4.6.4",
+    "web-ext": "6.8.0",
+    "webpack": "5.76.0",
+    "webpack-bundle-analyzer": "4.5.0",
+    "webpack-dev-server": "4.9.0",
+    "write-file-webpack-plugin": "4.5.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn prettier",
+      "standard --fix"
+    ],
+    "*.{ts,tsx}": [
+      "yarn prettier",
+      "standard --parser @typescript-eslint/parser --plugin typescript --fix"
+    ],
+    "*.{json,css,md}": [
+      "yarn prettier"
+    ]
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "parser": "babel-eslint",
+    "ignore": [
+      "src/js/chrome-extension-async.js",
+      "src/lib"
+    ],
+    "globals": [
+      "screen",
+      "Event",
+      "HTMLElement",
+      "HTMLInputElement",
+      "HTMLDivElement",
+      "page",
+      "browser",
+      "ace",
+      "chrome"
+    ]
+  }
+}
